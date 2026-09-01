@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>መላ market</title>
+    <!-- Frutiger Aero / Y2K inspired web fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f2f7fc;
-            --glass-bg: rgba(255, 255, 255, 0.78);
-            --glass-border: rgba(255, 255, 255, 0.95);
+            --bg-color: #f4f9ff;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.9);
             --text-main: #0f172a;
             --text-muted: #475569;
-            --primary: #0284c7;
-            --primary-hover: #0369a1;
-            --accent: #10b981;
-            --shadow: 0 10px 30px rgba(2, 132, 199, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            --border-radius: 18px;
+            --primary: #0077b6;
+            --primary-hover: #03538a;
+            --accent: #00b4d8;
+            --shadow: 0 8px 32px rgba(0, 119, 182, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            --border-radius: 16px;
         }
 
         * {
@@ -27,24 +28,24 @@
         }
 
         body {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 50%, #e0f7fa 100%);
+            background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 50%, #f0fdf4 100%);
             background-attachment: fixed;
             color: var(--text-main);
             padding-bottom: 50px;
             min-height: 100vh;
         }
 
-        /* Frutiger Aero Glassmorphism Header */
+        /* Frutiger Aero Glossmorphism Header (Aura style) */
         .app-header {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.9);
-            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 14px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -57,93 +58,106 @@
         }
 
         .avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
             color: white;
             font-weight: 800;
-            font-size: 18px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 119, 182, 0.3), inset 0 2px 3px rgba(255, 255, 255, 0.6);
         }
 
         .channel-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
-            background: linear-gradient(135deg, #0369a1 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #03538a 0%, #0f172a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
-        /* Floating Transparent Admin Plus Button */
+        /* Transparent Floating Admin Plus Button */
         .floating-admin-btn {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.4);
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.7);
             border-radius: 50%;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             transition: all 0.2s ease;
         }
 
         .floating-admin-btn:hover {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.6);
             transform: scale(1.05);
         }
 
-        /* Main Container */
+        /* Container Layout configured to 2-column Grid */
         .container {
-            max-width: 600px;
-            margin: 24px auto;
-            padding: 0 16px;
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 0 12px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
 
-        /* Frutiger Aero Glossy Product Card matching style 2 */
+        @media (max-width: 480px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 0 8px;
+            }
+        }
+
+        /* Frutiger Aero Glossy Product Card (Compact Grid Style) */
         .product-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 1);
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
             border-radius: var(--border-radius);
-            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
+            box-shadow: 0 8px 24px rgba(0, 119, 182, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
             overflow: hidden;
             position: relative;
-            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
         }
 
         .badge {
             position: absolute;
-            top: 14px;
-            right: 14px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%);
-            color: #047857;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 6px 12px;
-            font-size: 11px;
+            top: 8px;
+            right: 8px;
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.15) 0%, rgba(0, 119, 182, 0.25) 100%);
+            color: #0077b6;
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            padding: 3px 8px;
+            font-size: 9px;
             font-weight: 700;
-            border-radius: 30px;
+            border-radius: 20px;
             backdrop-filter: blur(4px);
             z-index: 10;
         }
 
         .product-image {
             width: 100%;
-            height: 280px;
+            height: 140px;
             background: #e2e8f0;
             display: flex;
             align-items: center;
@@ -152,58 +166,57 @@
         }
 
         .product-details {
-            padding: 24px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .product-details h2 {
-            font-size: 21px;
+            font-size: 13px;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .price {
             font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 6px;
+            margin-bottom: 2px;
         }
 
         .delivery-note {
-            font-size: 13px;
+            font-size: 11px;
             color: #059669;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
-        .description h3 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 6px;
+        .description {
+            display: none; /* Hide long description on grid cards for clean look */
         }
 
-        .description p {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* Glossy Buttons */
+        /* Compact Glossy Buttons */
         .action-buttons {
             display: flex;
-            gap: 12px;
-            margin-top: 24px;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: auto;
         }
 
         .btn {
-            flex: 1;
-            padding: 13px;
-            font-size: 14px;
+            width: 100%;
+            padding: 8px;
+            font-size: 12px;
             font-weight: 700;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
@@ -211,18 +224,17 @@
         }
 
         .primary-btn {
-            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
             color: white;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            box-shadow: 0 3px 10px rgba(0, 119, 182, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .primary-btn:hover {
-            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, #0096c7 0%, #03538a 100%);
         }
 
         .secondary-btn {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.8);
             color: var(--text-main);
             border: 1px solid rgba(203, 213, 225, 0.8);
         }
@@ -231,7 +243,7 @@
             background: rgba(255, 255, 255, 1);
         }
 
-        /* Modal / Panel Overlays */
+        /* Frutiger Aero Modals / Panels */
         .modal {
             display: none;
             position: fixed;
@@ -246,12 +258,12 @@
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            padding: 28px;
+            padding: 24px;
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
@@ -265,7 +277,7 @@
             to { transform: translateY(0); }
         }
 
-        .close-btn {
+        .close-btn, .close-modal-btn {
             color: var(--text-muted);
             float: right;
             font-size: 24px;
@@ -276,32 +288,32 @@
         .hidden { display: none !important; }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             text-align: left;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: var(--text-main);
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: rgba(255, 255, 255, 0.95);
             border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 13px;
             color: var(--text-main);
             outline: none;
         }
 
         .form-group input:focus, .form-group textarea:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
         }
 
         .item-row {
@@ -309,43 +321,44 @@
             justify-content: space-between;
             align-items: center;
             background: rgba(240, 249, 255, 0.8);
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 12px;
             border: 1px solid rgba(186, 230, 253, 0.6);
         }
 
         .item-row button {
-            padding: 5px 10px;
-            font-size: 12px;
-            margin-left: 6px;
+            padding: 4px 8px;
+            font-size: 11px;
+            margin-left: 4px;
             border-radius: 6px;
         }
 
         .payment-option {
             background: rgba(240, 249, 255, 0.8);
             border: 1px solid rgba(186, 230, 253, 0.8);
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
 
         .payment-option h3 {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--primary);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             font-weight: 700;
         }
 
         .payment-option p {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-main);
         }
     </style>
 </head>
 <body>
 
+    <!-- Frutiger Aero Glass Header with Transparent Admin Button -->
     <header class="app-header">
         <div class="logo-container">
             <div class="avatar">m.</div>
@@ -354,16 +367,20 @@
         <button id="openAdminModalBtn" class="floating-admin-btn" title="Admin Portal">+</button>
     </header>
 
+    <!-- Grid Layout Container for Products -->
     <main class="container" id="productContainer">
-        </main>
+        <!-- Products load here in grid format -->
+    </main>
 
+    <!-- Admin Modal Panel -->
     <div id="adminModal" class="modal">
         <div class="modal-content">
             <span class="close-modal-btn" id="closeAdminModal">&times;</span>
             
+            <!-- Login View -->
             <div id="adminLoginSection">
-                <h2 style="margin-bottom: 6px;">Admin Access</h2>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Enter credentials to manage store items.</p>
+                <h2 style="margin-bottom: 6px; font-size: 18px;">Admin Access</h2>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Enter credentials to manage store items.</p>
                 <div class="form-group">
                     <input type="text" id="inlineUser" placeholder="Username">
                 </div>
@@ -371,48 +388,50 @@
                     <input type="password" id="inlinePass" placeholder="Password">
                 </div>
                 <button id="inlineLoginBtn" class="btn primary-btn" style="width: 100%;">Login</button>
-                <p id="inlineError" style="color: #ef4444; font-size: 12px; margin-top: 8px; text-align: center;"></p>
+                <p id="inlineError" style="color: #ef4444; font-size: 11px; margin-top: 6px; text-align: center;"></p>
             </div>
 
+            <!-- Publishing & Editing View -->
             <div id="adminPublisherSection" class="hidden">
-                <h2 id="formTitle" style="margin-bottom: 4px;">Add New Product</h2>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Upload pictures from phone storage, update pricing, or edit details.</p>
+                <h2 id="formTitle" style="margin-bottom: 4px; font-size: 18px;">Add New Product</h2>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Upload pictures, update pricing, or edit store items.</p>
                 <input type="hidden" id="editIndex" value="-1">
                 
                 <div class="form-group">
                     <label>Product Name</label>
-                    <input type="text" id="newName" placeholder="e.g. Dissar Stretch Mark Lotion">
+                    <input type="text" id="newName" placeholder="e.g. Dissar Lotion">
                 </div>
                 <div class="form-group">
                     <label>Price (Birr)</label>
                     <input type="text" id="newPrice" placeholder="e.g. 3,600 Birr">
                 </div>
                 <div class="form-group">
-                    <label>Upload Image from Phone Storage</label>
+                    <label>Upload Image from Phone</label>
                     <input type="file" id="imageInput" accept="image/*">
                 </div>
                 <div class="form-group">
                     <label>Description & Features</label>
-                    <textarea id="newDesc" rows="4" placeholder="Enter product features, ingredients..."></textarea>
+                    <textarea id="newDesc" rows="3" placeholder="Enter product features..."></textarea>
                 </div>
                 
                 <button id="inlinePublishBtn" class="btn primary-btn" style="width: 100%;">Publish Item</button>
-                <button id="cancelEditBtn" class="btn secondary-btn hidden" style="width: 100%; margin-top: 8px;">Cancel Edit</button>
-                <button id="inlineLogoutBtn" class="btn secondary-btn" style="width: 100%; margin-top: 8px;">Logout</button>
-                <p id="inlineSuccess" style="color: #10b981; font-size: 12px; margin-top: 8px; text-align: center;"></p>
+                <button id="cancelEditBtn" class="btn secondary-btn hidden" style="width: 100%; margin-top: 6px;">Cancel Edit</button>
+                <button id="inlineLogoutBtn" class="btn secondary-btn" style="width: 100%; margin-top: 6px;">Logout</button>
+                <p id="inlineSuccess" style="color: #10b981; font-size: 11px; margin-top: 6px; text-align: center;"></p>
 
-                <hr style="margin: 20px 0; border: 0; border-top: 1px solid rgba(203, 213, 225, 0.6);">
-                <h3 style="margin-bottom: 10px; font-size: 16px;">Manage Existing Items</h3>
-                <div id="manageList" style="max-height: 220px; overflow-y: auto;"></div>
+                <hr style="margin: 16px 0; border: 0; border-top: 1px solid rgba(203, 213, 225, 0.6);">
+                <h3 style="margin-bottom: 8px; font-size: 14px;">Manage Existing Items</h3>
+                <div id="manageList" style="max-height: 180px; overflow-y: auto;"></div>
             </div>
         </div>
     </div>
 
+    <!-- Order Payment Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="closePaymentModal">&times;</span>
-            <h2>Select Payment Account</h2>
-            <p>Transfer the exact amount to one of the accounts below, then send your receipt.</p>
+            <h2 style="font-size: 18px; margin-bottom: 4px;">Select Payment Account</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Transfer the exact amount to one of the accounts below.</p>
             
             <div class="payment-option">
                 <h3>Telebirr</h3>
@@ -423,7 +442,7 @@
                 <p>Account Number: <strong>[1000XXXXXXXXX]</strong></p>
             </div>
 
-            <a href="https://t.me/mela_market_orders" class="btn primary-btn modal-done-btn">Send Receipt on Telegram</a>
+            <a href="https://t.me/mela_market_orders" class="btn primary-btn" style="display: block; text-align: center; margin-top: 14px;">Send Receipt on Telegram</a>
         </div>
     </div>
 
@@ -448,24 +467,19 @@
                 const card = document.createElement("div");
                 card.className = "product-card";
                 card.innerHTML = `
-                    <div class="badge">💯 Original Product</div>
+                    <div class="badge">💯 Original</div>
                     <div class="product-image">
-                        ${product.image ? `<img src="${product.image}" style="width:100%; height:100%; object-fit:cover;">` : '<div class="image-placeholder" style="color:var(--text-muted); font-weight:500;">No Image</div>'}
+                        ${product.image ? `<img src="${product.image}" style="width:100%; height:100%; object-fit:cover;">` : '<div style="color:var(--text-muted); font-size:12px; font-weight:500;">No Image</div>'}
                     </div>
                     
                     <div class="product-details">
                         <h2>${product.name}</h2>
                         <p class="price">${product.price}</p>
-                        <p class="delivery-note">🚚 Free Delivery Included</p>
-                        
-                        <div class="description">
-                            <h3>Description & Features</h3>
-                            <p>${product.description}</p>
-                        </div>
+                        <p class="delivery-note">🚚 Free Delivery</p>
 
                         <div class="action-buttons">
                             <button class="btn primary-btn orderBtn">Place Order</button>
-                            <a href="https://t.me/mela_market_orders" target="_blank" class="btn secondary-btn">Contact Me</a>
+                            <a href="https://t.me/mela_market_orders" target="_blank" class="btn secondary-btn">Contact</a>
                         </div>
                     </div>
                 `;
@@ -510,7 +524,6 @@
 
         openAdminModalBtn.onclick = () => {
             adminModal.style.display = "flex";
-            // Check session login state
             if (sessionStorage.getItem("isAdminLoggedIn") === "true") {
                 adminLoginSection.classList.add("hidden");
                 adminPublisherSection.classList.remove("hidden");
@@ -543,7 +556,6 @@
             }
         };
 
-        // File reader handler for phone image uploads
         document.getElementById("inlinePublishBtn").onclick = () => {
             const name = document.getElementById("newName").value.trim();
             const price = document.getElementById("newPrice").value.trim();
