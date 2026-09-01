@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>መላ market</title>
-    <!-- Frutiger Aero / Y2K inspired web fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f0f7ff;
-            --glass-bg: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.9);
+            --bg-color: #f2f7fc;
+            --glass-bg: rgba(255, 255, 255, 0.78);
+            --glass-border: rgba(255, 255, 255, 0.95);
             --text-main: #0f172a;
             --text-muted: #475569;
             --primary: #0284c7;
             --primary-hover: #0369a1;
             --accent: #10b981;
-            --shadow: 0 10px 30px rgba(2, 132, 199, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            --border-radius: 16px;
+            --shadow: 0 10px 30px rgba(2, 132, 199, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            --border-radius: 18px;
         }
 
         * {
@@ -28,7 +27,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 50%, #e0f7fa 100%);
             background-attachment: fixed;
             color: var(--text-main);
             padding-bottom: 50px;
@@ -37,32 +36,33 @@
 
         /* Frutiger Aero Glassmorphism Header */
         .app-header {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.9);
             padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 14px;
-            max-width: 600px;
-            margin: 0 auto;
+            gap: 12px;
         }
 
         .avatar {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
             color: white;
             font-weight: 800;
-            font-size: 20px;
+            font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -72,13 +72,38 @@
 
         .channel-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 700;
             background: linear-gradient(135deg, #0369a1 0%, #0f172a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+        }
+
+        /* Floating Transparent Admin Plus Button */
+        .floating-admin-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .floating-admin-btn:hover {
+            background: rgba(255, 255, 255, 0.85);
+            transform: scale(1.05);
         }
 
         /* Main Container */
@@ -88,25 +113,24 @@
             padding: 0 16px;
         }
 
-        /* Frutiger Aero Glossy Product Card */
+        /* Frutiger Aero Glossy Product Card matching style 2 */
         .product-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 1);
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
             overflow: hidden;
             position: relative;
             margin-bottom: 24px;
-            transition: transform 0.2s ease;
         }
 
         .badge {
             position: absolute;
             top: 14px;
             right: 14px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%);
             color: #047857;
             border: 1px solid rgba(16, 185, 129, 0.3);
             padding: 6px 12px;
@@ -119,7 +143,7 @@
 
         .product-image {
             width: 100%;
-            height: 260px;
+            height: 280px;
             background: #e2e8f0;
             display: flex;
             align-items: center;
@@ -132,7 +156,7 @@
         }
 
         .product-details h2 {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 8px;
@@ -140,11 +164,10 @@
 
         .price {
             font-family: 'Orbitron', sans-serif;
-            font-size: 21px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 6px;
-            letter-spacing: -0.5px;
         }
 
         .delivery-note {
@@ -152,9 +175,6 @@
             color: #059669;
             font-weight: 600;
             margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         .description h3 {
@@ -183,7 +203,7 @@
             font-size: 14px;
             font-weight: 700;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
@@ -193,39 +213,64 @@
         .primary-btn {
             background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.5);
         }
 
         .primary-btn:hover {
             background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
-            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.45);
             transform: translateY(-1px);
         }
 
         .secondary-btn {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             color: var(--text-main);
             border: 1px solid rgba(203, 213, 225, 0.8);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
         }
 
         .secondary-btn:hover {
             background: rgba(255, 255, 255, 1);
-            border-color: #94a3b8;
         }
 
-        /* Admin Trigger & Panel Glass Box */
-        .admin-trigger-section {
+        /* Modal / Panel Overlays */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(8px);
+            align-items: flex-end;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(20px);
+            width: 100%;
             max-width: 600px;
-            margin: 30px auto;
-            padding: 24px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            text-align: center;
+            margin: 0 auto;
+            padding: 28px;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .close-btn {
+            color: var(--text-muted);
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .hidden { display: none !important; }
@@ -246,13 +291,12 @@
         .form-group input, .form-group textarea {
             width: 100%;
             padding: 12px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border: 1px solid #cbd5e1;
             border-radius: 10px;
             font-size: 14px;
             color: var(--text-main);
             outline: none;
-            transition: border-color 0.2s;
         }
 
         .form-group input:focus, .form-group textarea:focus {
@@ -264,13 +308,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(240, 249, 255, 0.8);
             padding: 10px 14px;
             border-radius: 10px;
             margin-bottom: 8px;
             font-size: 13px;
-            text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(186, 230, 253, 0.6);
         }
 
         .item-row button {
@@ -278,63 +321,6 @@
             font-size: 12px;
             margin-left: 6px;
             border-radius: 6px;
-        }
-
-        /* Frutiger Aero Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(6px);
-            align-items: flex-end;
-        }
-
-        .modal-content {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(16px);
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 28px;
-            border-top-left-radius: 24px;
-            border-top-right-radius: 24px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            border-top: 1px solid rgba(255, 255, 255, 1);
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .close-btn {
-            color: var(--text-muted);
-            float: right;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close-btn:hover { color: var(--text-main); }
-
-        .modal-content h2 {
-            font-size: 19px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-
-        .modal-content > p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 18px;
         }
 
         .payment-option {
@@ -356,86 +342,75 @@
             font-size: 13px;
             color: var(--text-main);
         }
-
-        .modal-done-btn {
-            display: block;
-            width: 100%;
-            margin-top: 18px;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Frutiger Aero Glass Header -->
     <header class="app-header">
         <div class="logo-container">
             <div class="avatar">m.</div>
             <h1 class="channel-title">መላ market</h1>
         </div>
+        <button id="openAdminModalBtn" class="floating-admin-btn" title="Admin Portal">+</button>
     </header>
 
-    <!-- Dynamic Product Container -->
     <main class="container" id="productContainer">
-        <!-- Products load here -->
-    </main>
+        </main>
 
-    <!-- Admin Control Section -->
-    <div class="admin-trigger-section">
-        <div id="loginPrompt">
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">Are you the admin?</p>
-            <button id="showLoginBtn" class="btn secondary-btn" style="font-size: 13px; padding: 8px 16px;">Open Admin Panel</button>
-        </div>
-
-        <!-- Login Box -->
-        <div id="inlineLoginBox" class="hidden">
-            <h3 style="margin-bottom: 12px;">Admin Login</h3>
-            <div class="form-group">
-                <input type="text" id="inlineUser" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <input type="password" id="inlinePass" placeholder="Password">
-            </div>
-            <button id="inlineLoginBtn" class="btn primary-btn" style="width: 100%;">Enter</button>
-            <p id="inlineError" style="color: #ef4444; font-size: 12px; margin-top: 8px;"></p>
-        </div>
-
-        <!-- Publishing & Editing Box -->
-        <div id="inlinePublisher" class="hidden">
-            <h3 id="formTitle" style="margin-bottom: 4px;">Add New Product</h3>
-            <input type="hidden" id="editIndex" value="-1">
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal-btn" id="closeAdminModal">&times;</span>
             
-            <div class="form-group" style="margin-top: 15px;">
-                <label>Product Name</label>
-                <input type="text" id="newName" placeholder="e.g. Dissar Stretch Mark Lotion">
+            <div id="adminLoginSection">
+                <h2 style="margin-bottom: 6px;">Admin Access</h2>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Enter credentials to manage store items.</p>
+                <div class="form-group">
+                    <input type="text" id="inlineUser" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="inlinePass" placeholder="Password">
+                </div>
+                <button id="inlineLoginBtn" class="btn primary-btn" style="width: 100%;">Login</button>
+                <p id="inlineError" style="color: #ef4444; font-size: 12px; margin-top: 8px; text-align: center;"></p>
             </div>
-            <div class="form-group">
-                <label>Price (Birr)</label>
-                <input type="text" id="newPrice" placeholder="e.g. 3,600 Birr">
-            </div>
-            <div class="form-group">
-                <label>Upload Image from Phone Storage</label>
-                <input type="file" id="imageInput" accept="image/*">
-            </div>
-            <div class="form-group">
-                <label>Description & Features</label>
-                <textarea id="newDesc" rows="4" placeholder="Enter product features, ingredients..."></textarea>
-            </div>
-            
-            <button id="inlinePublishBtn" class="btn primary-btn" style="width: 100%;">Publish Item</button>
-            <button id="cancelEditBtn" class="btn secondary-btn hidden" style="width: 100%; margin-top: 8px;">Cancel Edit</button>
-            <button id="inlineLogoutBtn" class="btn secondary-btn" style="width: 100%; margin-top: 8px;">Logout</button>
-            <p id="inlineSuccess" style="color: #10b981; font-size: 12px; margin-top: 8px;"></p>
 
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid rgba(203, 213, 225, 0.6);">
-            <h3 style="margin-bottom: 10px;">Manage Existing Items</h3>
-            <div id="manageList" style="max-height: 200px; overflow-y: auto;"></div>
+            <div id="adminPublisherSection" class="hidden">
+                <h2 id="formTitle" style="margin-bottom: 4px;">Add New Product</h2>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Upload pictures from phone storage, update pricing, or edit details.</p>
+                <input type="hidden" id="editIndex" value="-1">
+                
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="newName" placeholder="e.g. Dissar Stretch Mark Lotion">
+                </div>
+                <div class="form-group">
+                    <label>Price (Birr)</label>
+                    <input type="text" id="newPrice" placeholder="e.g. 3,600 Birr">
+                </div>
+                <div class="form-group">
+                    <label>Upload Image from Phone Storage</label>
+                    <input type="file" id="imageInput" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label>Description & Features</label>
+                    <textarea id="newDesc" rows="4" placeholder="Enter product features, ingredients..."></textarea>
+                </div>
+                
+                <button id="inlinePublishBtn" class="btn primary-btn" style="width: 100%;">Publish Item</button>
+                <button id="cancelEditBtn" class="btn secondary-btn hidden" style="width: 100%; margin-top: 8px;">Cancel Edit</button>
+                <button id="inlineLogoutBtn" class="btn secondary-btn" style="width: 100%; margin-top: 8px;">Logout</button>
+                <p id="inlineSuccess" style="color: #10b981; font-size: 12px; margin-top: 8px; text-align: center;"></p>
+
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid rgba(203, 213, 225, 0.6);">
+                <h3 style="margin-bottom: 10px; font-size: 16px;">Manage Existing Items</h3>
+                <div id="manageList" style="max-height: 220px; overflow-y: auto;"></div>
+            </div>
         </div>
     </div>
 
-    <!-- Payment Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" id="closePaymentModal">&times;</span>
             <h2>Select Payment Account</h2>
             <p>Transfer the exact amount to one of the accounts below, then send your receipt.</p>
             
@@ -523,24 +498,46 @@
 
         renderStore();
 
-        // Admin inline toggles
-        const showLoginBtn = document.getElementById("showLoginBtn");
-        const loginPrompt = document.getElementById("loginPrompt");
-        const inlineLoginBox = document.getElementById("inlineLoginBox");
-        const inlinePublisher = document.getElementById("inlinePublisher");
+        // Modals control logic
+        const adminModal = document.getElementById("adminModal");
+        const paymentModal = document.getElementById("paymentModal");
+        const openAdminModalBtn = document.getElementById("openAdminModalBtn");
+        const closeAdminModal = document.getElementById("closeAdminModal");
+        const closePaymentModal = document.getElementById("closePaymentModal");
 
-        showLoginBtn.onclick = () => {
-            loginPrompt.classList.add("hidden");
-            inlineLoginBox.classList.remove("hidden");
+        const adminLoginSection = document.getElementById("adminLoginSection");
+        const adminPublisherSection = document.getElementById("adminPublisherSection");
+
+        openAdminModalBtn.onclick = () => {
+            adminModal.style.display = "flex";
+            // Check session login state
+            if (sessionStorage.getItem("isAdminLoggedIn") === "true") {
+                adminLoginSection.classList.add("hidden");
+                adminPublisherSection.classList.remove("hidden");
+                renderManageList();
+            } else {
+                adminLoginSection.classList.remove("hidden");
+                adminPublisherSection.classList.add("hidden");
+            }
+        };
+
+        closeAdminModal.onclick = () => adminModal.style.display = "none";
+        closePaymentModal.onclick = () => paymentModal.style.display = "none";
+
+        window.onclick = (e) => { 
+            if (e.target == adminModal) adminModal.style.display = "none";
+            if (e.target == paymentModal) paymentModal.style.display = "none";
         };
 
         document.getElementById("inlineLoginBtn").onclick = () => {
             const u = document.getElementById("inlineUser").value.trim();
             const p = document.getElementById("inlinePass").value.trim();
             if (u === "Ad" && p === "ty") {
-                inlineLoginBox.classList.add("hidden");
-                inlinePublisher.classList.remove("hidden");
+                sessionStorage.setItem("isAdminLoggedIn", "true");
+                adminLoginSection.classList.add("hidden");
+                adminPublisherSection.classList.remove("hidden");
                 renderManageList();
+                document.getElementById("inlineError").textContent = "";
             } else {
                 document.getElementById("inlineError").textContent = "Wrong username or password";
             }
@@ -640,17 +637,12 @@
         };
 
         document.getElementById("inlineLogoutBtn").onclick = () => {
-            inlinePublisher.classList.add("hidden");
-            loginPrompt.classList.remove("hidden");
+            sessionStorage.removeItem("isAdminLoggedIn");
+            adminPublisherSection.classList.add("hidden");
+            adminLoginSection.classList.remove("hidden");
             document.getElementById("inlineUser").value = "";
             document.getElementById("inlinePass").value = "";
         };
-
-        // Modal triggers
-        const modal = document.getElementById("paymentModal");
-        const closeBtn = document.getElementsByClassName("close-btn")[0];
-        closeBtn.onclick = () => modal.style.display = "none";
-        window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
     </script>
 </body>
 </html>
