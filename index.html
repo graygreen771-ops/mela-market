@@ -12,6 +12,8 @@
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
         .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 8px; font-size: 14px; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 13px; text-align: left; }
+        .item-row button { padding: 4px 8px; font-size: 12px; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -50,21 +52,36 @@
             <p id="inlineError" style="color: red; font-size: 12px; margin-top: 5px;"></p>
         </div>
 
-        <!-- Publishing Box -->
+        <!-- Publishing & Editing Box -->
         <div id="inlinePublisher" class="hidden">
-            <h3>Add New Product</h3>
-            <p style="font-size: 12px; color: #6c757d; margin-bottom: 15px;">Price is fixed at 3,600 Birr with free delivery.</p>
-            <div class="form-group">
-                <label>Image Link</label>
-                <input type="text" id="newImage" placeholder="Paste image URL here">
+            <h3 id="formTitle">Add New Product</h3>
+            <input type="hidden" id="editIndex" value="-1">
+            
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Product Name</label>
+                <input type="text" id="newName" placeholder="e.g. Dissar Stretch Mark Lotion">
             </div>
             <div class="form-group">
-                <label>Description & Ingredients</label>
-                <textarea id="newDesc" rows="4" placeholder="Enter product features..."></textarea>
+                <label>Price (Birr)</label>
+                <input type="text" id="newPrice" placeholder="e.g. 3600 Birr">
             </div>
+            <div class="form-group">
+                <label>Upload Image from Phone Storage</label>
+                <input type="file" id="imageInput" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label>Description & Features</label>
+                <textarea id="newDesc" rows="4" placeholder="Enter product features, ingredients..."></textarea>
+            </div>
+            
             <button id="inlinePublishBtn" class="btn primary-btn" style="width: 100%;">Publish Item</button>
+            <button id="cancelEditBtn" class="btn secondary-btn hidden" style="width: 100%; margin-top: 8px;">Cancel Edit</button>
             <button id="inlineLogoutBtn" class="btn secondary-btn" style="width: 100%; margin-top: 8px;">Logout</button>
             <p id="inlineSuccess" style="color: #28a745; font-size: 12px; margin-top: 5px;"></p>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+            <h3>Manage Existing Items</h3>
+            <div id="manageList" style="margin-top: 10px; max-height: 200px; overflow-y: auto;"></div>
         </div>
     </div>
 
@@ -73,7 +90,7 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>Select Payment Account</h2>
-            <p>Transfer the exact amount (3,600 Birr) to one of the accounts below, then send your receipt.</p>
+            <p>Transfer the exact amount to one of the accounts below, then send your receipt.</p>
             
             <div class="payment-option">
                 <h3>Telebirr</h3>
@@ -98,17 +115,21 @@
             description: "Advanced non-greasy formula designed to deeply nourish and restore skin elasticity. Key ingredients include Cocoa Butter, Shea Butter, Natural Essential Oils, Collagen, Elastin, and Lutein."
         };
 
+        function getStoredItems() {
+            return JSON.parse(localStorage.getItem("mela_products")) || [defaultProduct];
+        }
+
         function renderStore() {
-            let items = JSON.parse(localStorage.getItem("mela_products")) || [defaultProduct];
+            let items = getStoredItems();
             container.innerHTML = "";
-            items.forEach(product => {
+            items.forEach((product, idx) => {
                 const card = document.createElement("div");
                 card.className = "product-card";
                 card.style.marginBottom = "20px";
                 card.innerHTML = `
                     <div class="badge">💯 Original Product</div>
                     <div class="product-image" style="background-color: #e9ecef; height: 240px; display: flex; align-items: center; justify-content: center;">
-                        ${product.image ? `<img src="${product.image}" style="width:100%; height:100%; object-fit:cover;">` : '<div class="image-placeholder">Dissar Lotion</div>'}
+                        ${product.image ? `<img src="${product.image}" style="width:100%; height:100%; object-fit:cover;">` : '<div class="image-placeholder">No Image</div>'}
                     </div>
                     
                     <div class="product-details">
@@ -135,6 +156,25 @@
             });
         }
 
+        function renderManageList() {
+            let items = getStoredItems();
+            const manageList = document.getElementById("manageList");
+            manageList.innerHTML = "";
+            
+            items.forEach((item, index) => {
+                const row = document.createElement("div");
+                row.className = "item-row";
+                row.innerHTML = `
+                    <span><strong>${item.name}</strong> (${item.price})</span>
+                    <div>
+                        <button class="btn secondary-btn" onclick="editItem(${index})">Edit</button>
+                        <button class="btn secondary-btn" style="background:#dc3545; color:white;" onclick="deleteItem(${index})">Del</button>
+                    </div>
+                `;
+                manageList.appendChild(row);
+            });
+        }
+
         renderStore();
 
         // Admin inline toggles
@@ -154,36 +194,103 @@
             if (u === "Ad" && p === "ty") {
                 inlineLoginBox.classList.add("hidden");
                 inlinePublisher.classList.remove("hidden");
+                renderManageList();
             } else {
                 document.getElementById("inlineError").textContent = "Wrong username or password";
             }
         };
 
+        // File reader to handle direct image uploads from phone storage
         document.getElementById("inlinePublishBtn").onclick = () => {
-            const image = document.getElementById("newImage").value.trim();
+            const name = document.getElementById("newName").value.trim();
+            const price = document.getElementById("newPrice").value.trim();
             const description = document.getElementById("newDesc").value.trim();
-            if(!image || !description) {
-                alert("Please fill in both fields");
+            const imageInput = document.getElementById("imageInput");
+            const editIndex = parseInt(document.getElementById("editIndex").value);
+
+            if(!name || !price || !description) {
+                alert("Please fill in Name, Price, and Description");
                 return;
             }
 
-            const newItem = {
-                image: image,
-                name: "Dissar Stretch Mark Removal Lotion",
-                price: "3,600 Birr",
-                description: description
-            };
+            let items = getStoredItems();
 
-            let existingItems = JSON.parse(localStorage.getItem("mela_products")) || [defaultProduct];
-            existingItems.unshift(newItem);
-            localStorage.setItem("mela_products", JSON.stringify(existingItems));
+            function saveAndRefresh(imageUrl) {
+                const finalImage = imageUrl || (editIndex > -1 ? items[editIndex].image : "");
+                
+                const newItem = {
+                    image: finalImage,
+                    name: name,
+                    price: price,
+                    description: description
+                };
 
-            document.getElementById("inlineSuccess").textContent = "Published successfully!";
-            document.getElementById("newImage").value = "";
+                if (editIndex > -1) {
+                    items[editIndex] = newItem;
+                    document.getElementById("editIndex").value = "-1";
+                    document.getElementById("formTitle").textContent = "Add New Product";
+                    document.getElementById("inlinePublishBtn").textContent = "Publish Item";
+                    document.getElementById("cancelEditBtn").classList.add("hidden");
+                } else {
+                    items.unshift(newItem);
+                }
+
+                localStorage.setItem("mela_products", JSON.stringify(items));
+
+                document.getElementById("inlineSuccess").textContent = "Saved successfully!";
+                document.getElementById("newName").value = "";
+                document.getElementById("newPrice").value = "";
+                document.getElementById("newDesc").value = "";
+                imageInput.value = "";
+                
+                renderStore();
+                renderManageList();
+
+                setTimeout(() => document.getElementById("inlineSuccess").textContent = "", 3000);
+            }
+
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveAndRefresh(e.target.result);
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                saveAndRefresh(null);
+            }
+        };
+
+        window.editItem = function(index) {
+            let items = getStoredItems();
+            const item = items[index];
+            document.getElementById("newName").value = item.name;
+            document.getElementById("newPrice").value = item.price;
+            document.getElementById("newDesc").value = item.description;
+            document.getElementById("editIndex").value = index;
+            document.getElementById("formTitle").textContent = "Edit Product #" + (index + 1);
+            document.getElementById("inlinePublishBtn").textContent = "Update Item";
+            document.getElementById("cancelEditBtn").classList.remove("hidden");
+        };
+
+        document.getElementById("cancelEditBtn").onclick = function() {
+            document.getElementById("newName").value = "";
+            document.getElementById("newPrice").value = "";
             document.getElementById("newDesc").value = "";
-            renderStore();
+            document.getElementById("imageInput").value = "";
+            document.getElementById("editIndex").value = "-1";
+            document.getElementById("formTitle").textContent = "Add New Product";
+            document.getElementById("inlinePublishBtn").textContent = "Publish Item";
+            this.classList.add("hidden");
+        };
 
-            setTimeout(() => document.getElementById("inlineSuccess").textContent = "", 3000);
+        window.deleteItem = function(index) {
+            if(confirm("Are you sure you want to delete this item?")) {
+                let items = getStoredItems();
+                items.splice(index, 1);
+                localStorage.setItem("mela_products", JSON.stringify(items));
+                renderStore();
+                renderManageList();
+            }
         };
 
         document.getElementById("inlineLogoutBtn").onclick = () => {
