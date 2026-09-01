@@ -4,57 +4,404 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>መላ market</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Frutiger Aero / Y2K inspired web fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .admin-trigger-section { max-width: 600px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center; }
+        :root {
+            --bg-color: #f0f7ff;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --accent: #10b981;
+            --shadow: 0 10px 30px rgba(2, 132, 199, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            --border-radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            padding-bottom: 50px;
+            min-height: 100vh;
+        }
+
+        /* Frutiger Aero Glassmorphism Header */
+        .app-header {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            color: white;
+            font-weight: 800;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .channel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0369a1 0%, #0f172a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 600px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+
+        /* Frutiger Aero Glossy Product Card */
+        .product-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.2) 100%);
+            color: #047857;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 260px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-details {
+            padding: 24px;
+        }
+
+        .product-details h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .delivery-note {
+            font-size: 13px;
+            color: #059669;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .description h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .description p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Glossy Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 13px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .primary-btn:hover {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.45);
+            transform: translateY(-1px);
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-main);
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: #94a3b8;
+        }
+
+        /* Admin Trigger & Panel Glass Box */
+        .admin-trigger-section {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
         .hidden { display: none !important; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 8px; font-size: 14px; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 13px; text-align: left; }
-        .item-row button { padding: 4px 8px; font-size: 12px; margin-left: 5px; }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .item-row button {
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-left: 6px;
+            border-radius: 6px;
+        }
+
+        /* Frutiger Aero Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(6px);
+            align-items: flex-end;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 28px;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-top: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .close-btn {
+            color: var(--text-muted);
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover { color: var(--text-main); }
+
+        .modal-content h2 {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .modal-content > p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .payment-option {
+            background: rgba(240, 249, 255, 0.8);
+            border: 1px solid rgba(186, 230, 253, 0.8);
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .payment-option h3 {
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .payment-option p {
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .modal-done-btn {
+            display: block;
+            width: 100%;
+            margin-top: 18px;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Frutiger Aero Glass Header -->
     <header class="app-header">
         <div class="logo-container">
             <div class="avatar">m.</div>
-            <div class="channel-info">
-                <h1>መላ market</h1>
-                <span class="subscribers">22 subscribers</span>
-            </div>
+            <h1 class="channel-title">መላ market</h1>
         </div>
     </header>
 
+    <!-- Dynamic Product Container -->
     <main class="container" id="productContainer">
         <!-- Products load here -->
     </main>
 
-    <!-- Admin Control Section Built Right Into the Page -->
+    <!-- Admin Control Section -->
     <div class="admin-trigger-section">
         <div id="loginPrompt">
-            <p style="font-size: 13px; color: #6c757d; margin-bottom: 10px;">Are you the admin?</p>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">Are you the admin?</p>
             <button id="showLoginBtn" class="btn secondary-btn" style="font-size: 13px; padding: 8px 16px;">Open Admin Panel</button>
         </div>
 
         <!-- Login Box -->
         <div id="inlineLoginBox" class="hidden">
-            <h3>Admin Login</h3>
-            <div class="form-group" style="margin-top: 10px;">
+            <h3 style="margin-bottom: 12px;">Admin Login</h3>
+            <div class="form-group">
                 <input type="text" id="inlineUser" placeholder="Username">
             </div>
             <div class="form-group">
                 <input type="password" id="inlinePass" placeholder="Password">
             </div>
             <button id="inlineLoginBtn" class="btn primary-btn" style="width: 100%;">Enter</button>
-            <p id="inlineError" style="color: red; font-size: 12px; margin-top: 5px;"></p>
+            <p id="inlineError" style="color: #ef4444; font-size: 12px; margin-top: 8px;"></p>
         </div>
 
         <!-- Publishing & Editing Box -->
         <div id="inlinePublisher" class="hidden">
-            <h3 id="formTitle">Add New Product</h3>
+            <h3 id="formTitle" style="margin-bottom: 4px;">Add New Product</h3>
             <input type="hidden" id="editIndex" value="-1">
             
             <div class="form-group" style="margin-top: 15px;">
@@ -63,7 +410,7 @@
             </div>
             <div class="form-group">
                 <label>Price (Birr)</label>
-                <input type="text" id="newPrice" placeholder="e.g. 3600 Birr">
+                <input type="text" id="newPrice" placeholder="e.g. 3,600 Birr">
             </div>
             <div class="form-group">
                 <label>Upload Image from Phone Storage</label>
@@ -77,11 +424,11 @@
             <button id="inlinePublishBtn" class="btn primary-btn" style="width: 100%;">Publish Item</button>
             <button id="cancelEditBtn" class="btn secondary-btn hidden" style="width: 100%; margin-top: 8px;">Cancel Edit</button>
             <button id="inlineLogoutBtn" class="btn secondary-btn" style="width: 100%; margin-top: 8px;">Logout</button>
-            <p id="inlineSuccess" style="color: #28a745; font-size: 12px; margin-top: 5px;"></p>
+            <p id="inlineSuccess" style="color: #10b981; font-size: 12px; margin-top: 8px;"></p>
 
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-            <h3>Manage Existing Items</h3>
-            <div id="manageList" style="margin-top: 10px; max-height: 200px; overflow-y: auto;"></div>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid rgba(203, 213, 225, 0.6);">
+            <h3 style="margin-bottom: 10px;">Manage Existing Items</h3>
+            <div id="manageList" style="max-height: 200px; overflow-y: auto;"></div>
         </div>
     </div>
 
@@ -122,14 +469,13 @@
         function renderStore() {
             let items = getStoredItems();
             container.innerHTML = "";
-            items.forEach((product, idx) => {
+            items.forEach((product) => {
                 const card = document.createElement("div");
                 card.className = "product-card";
-                card.style.marginBottom = "20px";
                 card.innerHTML = `
                     <div class="badge">💯 Original Product</div>
-                    <div class="product-image" style="background-color: #e9ecef; height: 240px; display: flex; align-items: center; justify-content: center;">
-                        ${product.image ? `<img src="${product.image}" style="width:100%; height:100%; object-fit:cover;">` : '<div class="image-placeholder">No Image</div>'}
+                    <div class="product-image">
+                        ${product.image ? `<img src="${product.image}" style="width:100%; height:100%; object-fit:cover;">` : '<div class="image-placeholder" style="color:var(--text-muted); font-weight:500;">No Image</div>'}
                     </div>
                     
                     <div class="product-details">
@@ -168,7 +514,7 @@
                     <span><strong>${item.name}</strong> (${item.price})</span>
                     <div>
                         <button class="btn secondary-btn" onclick="editItem(${index})">Edit</button>
-                        <button class="btn secondary-btn" style="background:#dc3545; color:white;" onclick="deleteItem(${index})">Del</button>
+                        <button class="btn secondary-btn" style="background:#fee2e2; color:#dc2626; border-color:#fca5a5;" onclick="deleteItem(${index})">Del</button>
                     </div>
                 `;
                 manageList.appendChild(row);
@@ -200,7 +546,7 @@
             }
         };
 
-        // File reader to handle direct image uploads from phone storage
+        // File reader handler for phone image uploads
         document.getElementById("inlinePublishBtn").onclick = () => {
             const name = document.getElementById("newName").value.trim();
             const price = document.getElementById("newPrice").value.trim();
