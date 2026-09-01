@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>መላ market</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="logo-container">
+            <div class="avatar">m.</div>
+            <div class="channel-info">
+                <h1>መላ market</h1>
+                <span class="subscribers">22 subscribers</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="product-card">
+            <div class="badge">💯 Original Product</div>
+            <div class="product-image">
+                <div class="image-placeholder">Dissar Lotion</div>
+            </div>
+            
+            <div class="product-details">
+                <h2>Dissar Stretch Mark Removal Lotion</h2>
+                <p class="price">3,600 Birr</p>
+                <p class="delivery-note">🚚 Free Delivery Included</p>
+                
+                <div class="description">
+                    <h3>Description & Features</h3>
+                    <p>Advanced non-greasy formula designed to deeply nourish and restore skin elasticity.</p>
+                    
+                    <h4>Key Ingredients:</h4>
+                    <ul>
+                        <li>Cocoa Butter & Shea Butter</li>
+                        <li>Natural Essential Oils</li>
+                        <li>Collagen & Elastin</li>
+                        <li>Lutein</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="orderBtn" class="btn primary-btn">Place Order</button>
+                    <a href="https://t.me/mela_market_orders" target="_blank" class="btn secondary-btn">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Select Payment Account</h2>
+            <p>Transfer the exact amount (3,600 Birr) to one of the accounts below, then send your receipt to our contact handle.</p>
+            
+            <div class="payment-option">
+                <h3>Telebirr</h3>
+                <p>Account Name: <strong>[Your Name Here]</strong></p>
+                <p>Phone Number: <strong>[09XXXXXXXX]</strong></p>
+            </div>
+
+            <div class="payment-option">
+                <h3>Commercial Bank of Ethiopia (CBE)</h3>
+                <p>Account Name: <strong>[Your Name Here]</strong></p>
+                <p>Account Number: <strong>[1000XXXXXXXXX]</strong></p>
+            </div>
+
+            <a href="https://t.me/mela_market_orders" class="btn primary-btn modal-done-btn">Send Receipt on Telegram</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
